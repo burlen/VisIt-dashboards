@@ -2,16 +2,17 @@
 A collection of scripts that configure and run VisIt regression tests.
 
 ## Basic Usage
-1. create a "root" directory where your dashboard will live
-2. in the root directory create 3 subdirectories 
+1. Create a "root" directory where your dashboard will live and in the root directory create the following 3 subdirectories
     * root/visit-src
     * root/visit-deps
     * root/visit-build
-3. copy the "visit" dir(where all the compiled libraries are) from a recent run of build_visit into root/visit-deps
-4. Make a copy of *missm-config.cmake* to *[hostname]-config.cmake* and modify the paths to match your dashboard root.
-5. Make a copy of *missm-test.sh* to *[hostname]-test.sh* and modify the command line and run environment as needed. For example you may need to load MPI modules and so on.
-6. Setup a cron job to run the dashboard at a convinient time.
-
+3. Make an initial checkout of the source tree
+    * ````svn co svn+ssh://loring@portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/src visit-src/````
+4. Copy dependencies from *build_visit* "visit" dir(where all the compiled libraries are) into *root/visit-deps*
+5. Copy your config site file into *root/visit-deps*
+5. Make a copy of *missm-config.cmake* to *[hostname]-config.cmake* and modify the paths to match the paths and config site used above.
+6. Make a copy of *missm-test.sh* to *[hostname]-test.sh* and modify the command line and run environment as needed. For example you may need to load MPI modules and so on.
+7. Setup a cron job to run the dashboard at a convinient time.
 
 ##Advanced Usage
 To update the dashboard on new commits. Set up a cron job to fire on a regular interval(eg 30 min) and in *[hostname]-test.sh* set:
