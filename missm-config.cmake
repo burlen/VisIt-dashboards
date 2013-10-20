@@ -1,7 +1,7 @@
 set(CTEST_PROJECT_NAME "VisIt")
 #-----------------------------------------------------------------------------
 # site specific config
-set(CTEST_DASHBOARD_ROOT "/work3/visit-branch/dashboard/")
+set(CTEST_DASHBOARD_ROOT "/work2/visit-branch/dashboard/")
 set(NERSC_USER loring)
 set(CONFIG_SITE ${CTEST_DASHBOARD_ROOT}/visit-deps/missmarple.cmake)
 set(CTEST_SITE "missmarple.lbl.gov")
@@ -29,6 +29,7 @@ if (NOT INCREMENTAL_BUILD)
     file(WRITE "${CTEST_BINARY_DIRECTORY}/CMakeCache.txt"
 "VISIT_CONFIG_SITE:STRING=${CONFIG_SITE}
 CMAKE_BUILD_TYPE=Debug
+BUILD_TESTING=ON
 CMAKE_CXX_FLAGS=${TEST_WARNINGS}")
 endif()
 ctest_start("Experimental")
