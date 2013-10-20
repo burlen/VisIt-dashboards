@@ -1,20 +1,14 @@
-# expects the following directories
-# CTEST_DASHBOARD_ROOT
-#       /visit-deps
-#       /visit-src
-#       /visit-build
 set(CTEST_PROJECT_NAME "VisIt")
 #-----------------------------------------------------------------------------
 # site specific config
-set(CTEST_DASHBOARD_ROOT "/work3/visit-branch/dashboard/")
+set(CTEST_DASHBOARD_ROOT "/work2/visit-branch/dashboard/")
 set(NERSC_USER loring)
 set(CONFIG_SITE ${CTEST_DASHBOARD_ROOT}/visit-deps/missmarple.cmake)
 set(CTEST_SITE "missmarple.lbl.gov")
-set(CTEST_BUILD_NAME "linux-x86_64_gcc-4.6-g")
+set(CTEST_BUILD_NAME "Ubuntu12.04-gcc4.6.3")
 set(TEST_WARNINGS "-Wall -Wno-unused-function -Wno-sign-compare -Wno-unused-variable -Wno-write-strings -Wno-parentheses -Wno-unused-but-set-variable -Wno-missing-braces")
 set(ALWAYS_UPDATE ON)
 set(INCREMENTAL_BUILD OFF)
-#set($ENV{LC_MESSAGES} "en_US")
 #-----------------------------------------------------------------------------
 # general config
 set(CTEST_CMAKE_GENERATOR "Unix Makefiles")
@@ -27,8 +21,6 @@ if (NOT CTEST_TEST_TIMEOUT)
     set(CTEST_TEST_TIMEOUT 120)
 endif()
 set(CTEST_SVN_COMMAND "/usr/bin/svn")
-set(CTEST_SVV_CHECKOUT
-    "${CTEST_SVN_COMMAND} co svn+ssh://${NERSC_USER}@portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/src visit-src/")
 set(CTEST_UPDATE_COMMAND "${CTEST_SVN_COMMAND}")
 #-----------------------------------------------------------------------------
 # run the tests
@@ -37,6 +29,7 @@ if (NOT INCREMENTAL_BUILD)
     file(WRITE "${CTEST_BINARY_DIRECTORY}/CMakeCache.txt"
 "VISIT_CONFIG_SITE:STRING=${CONFIG_SITE}
 CMAKE_BUILD_TYPE=Debug
+BUILD_TESTING=ON
 CMAKE_CXX_FLAGS=${TEST_WARNINGS}")
 endif()
 ctest_start("Experimental")

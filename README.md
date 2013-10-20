@@ -13,6 +13,9 @@ A collection of scripts that configure and run VisIt regression tests.
 5. Make a copy of *missm-config.cmake* to *[hostname]-config.cmake* and modify the paths to match the paths and config site used above.
 6. Make a copy of *missm-test.sh* to *[hostname]-test.sh* and modify the command line and run environment as needed. For example you may need to load MPI modules and so on.
 7. Setup a cron job to run the dashboard at a convinient time.
+    * ```# VisIt daily dashboard for missm
+0 6 * * * /work3/visit-branch/dashboard/missm-test.sh```
+
 
 ##Advanced Usage
 To update the dashboard on new commits. Set up a cron job to fire on a regular interval(eg 30 min) and in *[hostname]-test.sh* set:
