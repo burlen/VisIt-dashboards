@@ -1,26 +1,29 @@
 # VisIt-dashboards
-A collection of scripts that configure and run VisIt regression tests.
+A collection of scripts that drive VisIt CDash regression tests.
 
-## Basic Usage
-1. Create a "root" directory where your dashboard will live and in the root directory create the following 3 subdirectories
-    * root/visit-src
-    * root/visit-deps
-    * root/visit-build
-3. Make an initial checkout of the source tree
-    * ````svn co svn+ssh://loring@portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/src visit-src/````
-4. Copy dependencies from *build_visit* "visit" dir(where all the compiled libraries are) into *root/visit-deps*
-5. Copy your config site file into *root/visit-deps*
-5. Make a copy of *missm-config.cmake* to *[hostname]-config.cmake* and modify the paths to match the paths and config site used above.
-6. Make a copy of *missm-test.sh* to *[hostname]-test.sh* and modify the command line and run environment as needed. For example you may need to load MPI modules and so on.
-7. Setup a cron job to run the dashboard at a convinient time.
-    * ```# VisIt daily dashboard for missm
-0 6 * * * /work3/visit-branch/dashboard/missm-test.sh```
+## Usage
+Note: the followinig assumes bash shell.
 
+1. Choose a dashboard type, *Nightly* or *Continuous*. The *Nightly* type will once per day, at some convinient time of your choosing, fetch updates, blow away its build dir, make a full build, and run the regresssions. The *Continuous* type will periodically check for updates and make and incremental build if any are found.
+2. Create a "root" directory where your dashboard will live and in the root directory create the following subdirectories.
+        ```Shell
+        mkdir -p root/visit-build-{Nightly,Continuous}
+        mkdir -p root/visit-deps```
+3. Make an initial checkout of the source tree for each. Not you might have to set your NERSC username.
+        ```Shell
+        cd root
+        svn co svn+ssh://portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/src visit-src-Nightly/
+        svn co svn+ssh://portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/src visit-src-Nightly/```
 
-##Advanced Usage
-To update the dashboard on new commits. Set up a cron job to fire on a regular interval(eg 30 min) and in *[hostname]-test.sh* set:
-
-```cmake
-ALWAYS_UPDATE=OFF
-INCREMENTAL_BUILD=ON
-```
+4. Copy VisIt's dependencies from a recent run of *build_visit/visit* "into *root/visit-deps*. I'm expecting that all the library folders(vtk,hdf5, etc) be at this level. Copy your site config there as well.
+        ```Shell
+        cp -r /path/to/build-visit/visit/* visit-deps```
+5. Pull the dashbaord scripts:
+        ```Shell
+        git init
+        git remote add github git@github.com:burlen/VisIt-dashboards.git
+        git pull github master```
+6. In the scripts directory make a copy of one of the existing pairs fo files, *hostname-config.cmake* and *hostname-test.sh*. Back in the root directory make symlinks to the new copies. Modify the copies of these files to fit the paths of your system.
+7. Setup a cron job to run the dashboard at a convinient time. For example
+         ```# VisIt daily dashboard for missm
+         0 6 * * * /work3/visit-branch/dashboard/missm-test.sh Nightly```
