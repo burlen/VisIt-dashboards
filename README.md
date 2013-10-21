@@ -9,6 +9,7 @@ Note: the followinig assumes bash shell.
 
         mkdir -p root/visit-build-{Nightly,Continuous}
         mkdir -p root/visit-deps
+        mkdir -p root/visit-logs
 
 3. Make an initial checkout of the source tree for each. Not you might have to set your NERSC username.
 
@@ -29,8 +30,8 @@ Note: the followinig assumes bash shell.
         git pull github master
 
 
-6. In the scripts directory make a copy of one of the existing pairs fo files, *hostname-config.cmake* and *hostname-test.sh*. Back in the root directory make symlinks to the new copies. Modify the copies of these files to fit the paths of your system.
-7. Setup a cron job to run the dashboard at a convinient time. For example
+6. In the scripts directory make a copy of one of the existing pairs of files to *hostname-config.cmake* and *hostname-test.sh*. Modify the copies of these files to fit the paths of your system. Back in the root directory make symlinks to the new copies.
+7. Setup a cron job to run the dashboard at a convinient time. For example use *crontab -e* and add one or both of the following.
 
          # Nightly
          0 6 * * * /path/to/root/hostname-test.sh Nightly
