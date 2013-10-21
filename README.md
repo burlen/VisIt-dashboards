@@ -6,20 +6,20 @@ Note: the followinig assumes bash shell.
 
 1. Choose a dashboard type, *Nightly* or *Continuous*. The *Nightly* type will once per day, at some convinient time of your choosing, fetch updates, blow away its build dir, make a full build, and run the regresssions. The *Continuous* type will periodically check for updates and make and incremental build if any are found.
 2. Create a "root" directory where your dashboard will live and in the root directory create the following subdirectories.
-        ```Shell
+        ```bash
         mkdir -p root/visit-build-{Nightly,Continuous}
         mkdir -p root/visit-deps```
 3. Make an initial checkout of the source tree for each. Not you might have to set your NERSC username.
-        ```Shell
+        ```bash
         cd root
         svn co svn+ssh://portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/src visit-src-Nightly/
         svn co svn+ssh://portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/src visit-src-Nightly/```
 
 4. Copy VisIt's dependencies from a recent run of *build_visit/visit* "into *root/visit-deps*. I'm expecting that all the library folders(vtk,hdf5, etc) be at this level. Copy your site config there as well.
-        ```Shell
+        ```bash
         cp -r /path/to/build-visit/visit/* visit-deps```
 5. Pull the dashbaord scripts:
-        ```Shell
+        ```bash
         git init
         git remote add github git@github.com:burlen/VisIt-dashboards.git
         git pull github master```
