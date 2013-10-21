@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 if [[ $# != 1 ]]
 then
     echo
