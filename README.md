@@ -32,6 +32,9 @@ Note: the followinig assumes bash shell.
 6. In the scripts directory make a copy of one of the existing pairs fo files, *hostname-config.cmake* and *hostname-test.sh*. Back in the root directory make symlinks to the new copies. Modify the copies of these files to fit the paths of your system.
 7. Setup a cron job to run the dashboard at a convinient time. For example
 
-         # VisIt daily dashboard for missm
-         0 6 * * * /work3/visit-branch/dashboard/missm-test.sh Nightly
+         # Nightly
+         0 6 * * * /path/to/root/hostname-test.sh Nightly
+
+         # Continuous
+         0,30 * * * * /path/to/root/hostname-test.sh Continuous
 
