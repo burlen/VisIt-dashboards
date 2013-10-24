@@ -2,6 +2,7 @@
 module load mpich-3.0.3-R
 module load cmake-2.8.10
 module load qt-4.8.2
+export DISPLAY=:0
 if [[ $# != 1 ]]
 then
     echo

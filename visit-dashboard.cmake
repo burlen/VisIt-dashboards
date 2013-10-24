@@ -1,7 +1,8 @@
 #-----------------------------------------------------------------------------
 # general config
-set(DASHBOARD_TYPE $ENV{DASHBOARD_TYPE})
 set(CTEST_PROJECT_NAME "VisIt")
+set(CTEST_NOTES_FILES ${CONFIG_SITE})
+set(DASHBOARD_TYPE $ENV{DASHBOARD_TYPE})
 if (NOT DEFINED ALWAYS_UPDATE)
     if (DASHBOARD_TYPE STREQUAL "Continuous")
         set(ALWAYS_UPDATE OFF)
