@@ -7,18 +7,19 @@ The followinig guide assumes bash shell.
 1. Choose a dashboard type, *Nightly* or *Continuous*. The *Nightly* type will once per day, at some convinient time of your choosing, fetch updates, blow away its build dir, make a full build, and run the regresssions. The *Continuous* type will periodically check for updates and make and incremental build if any are found.
 2. Create a "root" directory where your dashboard will live and in the root directory create the following subdirectories.
 
-        mkdir -p root/visit-build-{Nightly,Continuous}
-        mkdir -p root/visit-deps
-        mkdir -p root/visit-logs
+        mkdir -p dashroot/{Nightly,Continuous}
+        mkdir -p dashroot/visit-deps
+        mkdir -p dashroot/logs
 
-3. Make an initial checkout of the source tree for each. Note you might have to set your NERSC username. If you have both *Nightly* and *Continuous* dashboards you need a source treee for each.
+3. Make an initial checkout of the sources, tests and data. Note you might have to set your NERSC username. If you have both *Nightly* and *Continuous* dashboards you need a source treee for each.
 
-        cd root
-        svn co svn+ssh://portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/src visit-src-Nightly/
-        svn co svn+ssh://portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/src visit-src-Continuous/
+        cd dashroot/{Nightly,Continuous}
+        svn co svn+ssh://portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/src
+        svn co svn+ssh://portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/data
+        svn co svn+ssh://portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/test
 
 
-4. Copy VisIt's dependencies from a recent run of *build_visit/visit* "into *root/visit-deps*. I'm expecting that all the library folders(vtk,hdf5, etc) be at this level. Copy your site config there as well.
+4. Copy VisIt's dependencies from a recent run of *build_visit/visit* "into *dashroot/visit-deps*.
 
         cp -r /path/to/build-visit/visit/* visit-deps
 
