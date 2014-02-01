@@ -1,7 +1,7 @@
 set(CTEST_SITE "missmarple.lbl.gov")
 set(CTEST_BUILD_NAME "Ubuntu12.04-gcc4.6.3")
 set(CTEST_DASHBOARD_ROOT "/work2/visit-branch/dashboard/")
-set(CONFIG_SITE ${CTEST_DASHBOARD_ROOT}/visit-deps/missmarple.cmake)
+set(CONFIG_SITE ${CTEST_DASHBOARD_ROOT}/visit-deps-io/missmarple.cmake)
 set(TEST_WARNINGS "-Wall -Wno-unused-function -Wno-sign-compare -Wno-unused-variable -Wno-write-strings -Wno-parentheses -Wno-unused-but-set-variable -Wno-missing-braces -Wno-reorder -Wno-unused-result")
 set(INITIAL_CACHE
 "VISIT_CONFIG_SITE:STRING=${CONFIG_SITE}
