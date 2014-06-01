@@ -19,12 +19,22 @@ The followinig guide assumes bash shell.
         svn co svn+ssh://portal-auth.nersc.gov/project/projectdirs/visit/svn/visit/trunk/test
 
 
-4. Copy VisIt's dependencies from a recent run of *build_visit/visit* "into *dashroot/visit-deps*.
+4. Build VisIt's dependencies.
 
-        cp -r /path/to/build-visit/visit/* visit-deps
+        cd dashroot/visit-deps
+        ../{Nightly,Continuous}/src/svn_bin/build_visit --console --vtk --python --system-qt --mesa --system-cmake --parallel --no-pyside --no-visit --arch x86_64 --makeflags -j8 --advio --boxlib --ccmio --cfitsio --cgns --fastbit --gdal --h5part --hdf5 --mxml --netcdf --silo --szip --xdmf --zlib
 
+5. Install PIL with zlib support into VisIt's python.
 
-5. Pull the dashbaord scripts:
+        wget http://effbot.org/downloads/Imaging-1.1.7.tar.gz
+        tar xzfv Imaging-1.1.7.tar.gz
+        cd Imaging-1.1.7
+        vim setup.py
+        #ZLIB_ROOT = libinclude("dashroot/visit-deps/visit/zlib/1.2.7/x86_64/")
+        ../visit/python/2.7.5/x86_64/bin/python setup.py build_ext -i
+        ../visit/python/2.7.5/x86_64/bin/python setup.py install
+
+6. Pull the dashbaord scripts:
 
         git init
         git remote add github git@github.com:burlen/VisIt-dashboards.git
