@@ -1,13 +1,25 @@
 #!/bin/bash -l
-if [[ $# != 1 ]]
+if [[ $# != 2 ]]
 then
     echo
     echo "ERROR: Usage"
-    echo "$0 Experimental|Nightly|Continuous"
+    echo "$0 Experimental|Nightly|Continuous clang|gcc"
     echo
     exit -1
 fi
-source /Users/bloring/openmpi-1.6.4.sh
+case "$2" in
+    gcc)
+      DASHCONFIG=babycakes-config.cmake
+      source /Users/bloring/openmpi-1.6.4.sh
+      ;;
+    clang)
+      DASHCONFIG=babycakes-config-clang.cmake
+      source /Users/bloring/openmpi-1.6.4-clang.sh
+      ;;
+    *)
+      echo "ERROR: bad config \$2=$2 is invalid."
+      exit -1
+esac
 DASHROOT=/Users/bloring/visit/dashboards
 #export LD_LIBRARY_PATH=$DASHROOT/visit-deps-2.8/visit/vtk/6.1.0/darwin/:$LD_LIBRARY_PATH
 cd $DASHROOT
@@ -24,6 +36,6 @@ then
 fi
 touch $LOCKFILE
 trap "rm $LOCKFILE; exit" SIGHUP SIGINT SIGTERM
-ctest --timeout 120 -S $DASHROOT/babycakes-config.cmake -O ./logs/$DASHBOARD_TYPE-$EPOCH.log -V
+ctest --timeout 120 -S $DASHROOT/$DASHCONFIG -O ./logs/$DASHBOARD_TYPE-$EPOCH.log -V
 find $DASHROOT/logs -maxdepth 0 -name '*.log' -atime 2 -exec rm \{\} \;
 rm $LOCKFILE
