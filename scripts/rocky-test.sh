@@ -1,14 +1,18 @@
 #!/bin/bash -l
-export DISPLAY=:0
-if [[ $# != 1 ]]
+if [[ $# != 2 ]]
 then
     echo
     echo "ERROR: Usage"
-    echo "$0 Experimental|Nightly|Continuous"
+    echo "$0 Experimental|Nightly|Continuous asan|basic"
     echo
     exit -1
 fi
+
+
 module load mpich/3.1-rc1
+export ASAN_SYMBOLIZER_PATH=`which llvm-symbolizer`
+export DISPLAY=:0
+
 DASHROOT=/work/dashboards/visit
 cd $DASHROOT
 export LD_LIBRARY_PATH=$DASHROOT/visit-deps/visit/vtk/6.1.0/x86_64/lib:$LD_LIBRARY_PATH
