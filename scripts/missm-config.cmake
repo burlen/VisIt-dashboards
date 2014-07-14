@@ -2,7 +2,7 @@ set(CTEST_SITE "missmarple.lbl.gov")
 set(CTEST_BUILD_NAME "Ubuntu12.04-gcc4.6.3")
 set(CTEST_DASHBOARD_ROOT "/work2/visit-branch/dashboard/")
 set(CONFIG_SITE ${CTEST_DASHBOARD_ROOT}/visit-deps-2.8/missmarple.cmake)
-set(TEST_WARNINGS "-Wall -Wextra")
+set(TEST_WARNINGS "-Wall")
 set(INITIAL_CACHE
 "VISIT_CONFIG_SITE:STRING=${CONFIG_SITE}
 BUILD_TESTING=ON
