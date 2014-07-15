@@ -7,6 +7,17 @@ then
     echo
     exit -1
 fi
+DASHROOT=/Users/bloring/visit/dashboards
+cd $DASHROOT
+case "$1" in
+    Nightly)
+      cd Nightly/src
+      SVNREV=`date -v-2d +%Y-%m-%d`
+      echo $SVNREV
+      svn up -r {"$SVNREV 22:00:00"}
+      cd ../..
+      ;;
+esac
 case "$2" in
     gcc)
       DASHCONFIG=babycakes-config.cmake
@@ -20,9 +31,7 @@ case "$2" in
       echo "ERROR: bad config \$2=$2 is invalid."
       exit -1
 esac
-DASHROOT=/Users/bloring/visit/dashboards
 #export LD_LIBRARY_PATH=$DASHROOT/visit-deps-2.8/visit/vtk/6.1.0/darwin/:$LD_LIBRARY_PATH
-cd $DASHROOT
 export DASHBOARD_TYPE=$1
 EPOCH=`date +%s`
 LOCKFILE=lock_$DASHBOARD_TYPE
