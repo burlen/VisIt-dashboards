@@ -15,6 +15,11 @@ cd $DASHROOT
 export LD_LIBRARY_PATH=$DASHROOT/visit-deps-2.8/visit/vtk/6.1.0/x86_64/lib:$LD_LIBRARY_PATH
 export DISPLAY=:0
 export DASHBOARD_TYPE=$1
+case "$1" in
+    Continuous)
+      CTESTFLAGS="-L serial"
+      ;;
+esac
 LOCKFILE=lock_$DASHBOARD_TYPE
 if [[ -e $LOCKFILE ]]
 then
@@ -27,6 +32,6 @@ fi
 touch $LOCKFILE
 trap "rm -f $LOCKFILE; exit" SIGHUP SIGINT SIGTERM
 EPOCH=`date +%s`
-ctest --timeout 120 -S /work2/visit-branch/dashboard/missm-config.cmake -O ./logs/$DASHBOARD_TYPE-$EPOCH.log -V
+ctest --timeout 120 -S /work2/visit-branch/dashboard/missm-config.cmake -O ./logs/$DASHBOARD_TYPE-$EPOCH.log -V $CTESTFLAGS
 find /work2/visit-branch/dashboard/logs -maxdepth 0 -name '*.log' -atime 2 -exec rm \{\} \;
 rm $LOCKFILE
