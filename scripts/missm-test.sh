@@ -19,6 +19,13 @@ case "$1" in
     Continuous)
       CTESTFLAGS="-L serial"
       ;;
+    Nightly)
+      cd Nightly/src
+      SVNREV=`date +%Y-%m-%d -d "2 days ago"`
+      echo $SVNREV
+      svn up -r {"$SVNREV 22:00:00"}
+      cd ../..
+      ;;
 esac
 LOCKFILE=lock_$DASHBOARD_TYPE
 if [[ -e $LOCKFILE ]]
