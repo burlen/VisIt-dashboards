@@ -17,6 +17,9 @@ case "$1" in
       svn up -r {"$SVNREV 22:00:00"}
       cd ../..
       ;;
+    Continuous)
+      CTESTFLAGS="-L serial"
+      ;;
 esac
 case "$2" in
     gcc)
@@ -45,6 +48,6 @@ then
 fi
 touch $LOCKFILE
 trap "rm $LOCKFILE; exit" SIGHUP SIGINT SIGTERM
-ctest --timeout 120 -S $DASHROOT/$DASHCONFIG -O ./logs/$DASHBOARD_TYPE-$EPOCH.log -V
+ctest --timeout 120 -S $DASHROOT/$DASHCONFIG -O ./logs/$DASHBOARD_TYPE-$EPOCH.log -V ${CTESTFLAGS}
 find $DASHROOT/logs -maxdepth 0 -name '*.log' -atime 2 -exec rm \{\} \;
 rm $LOCKFILE
